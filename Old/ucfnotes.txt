@@ -1,0 +1,123 @@
+loc_0x0:
+   lis r5, 0x804D
+   addi r5, r5, 0x1FB0
+   lbz r4, 0xC(r31)
+   mulli r4, r4, 8
+   lwzx r4, r5, r4
+   cmpwi r4, 0x1
+   beq- .db1
+   b .db4
+
+.db1:
+  lhz r4, 1000(r31)
+  cmpwi r4, 0x4000
+  bne- .db4
+  lwz r4, -20812(r13)
+  lfs f1, 1568(r31)
+  lfs f2, 9028(r31)
+  fmuls f1, f1, f2
+  lfs f2, 60(r4)
+  fcmpo cr0, f1, f2
+  cror 2, 1, 2
+  bne- .db4
+  lfs f2, 1572(r31)
+  fmuls f1, f1, f1
+  fmuls f2, f2, f2
+  fadds f1, f1, f2
+  lis r4, 0x3F67
+  addi r4, r4, 0xA3D
+  stw r4, 44(r31)
+  lfs f2, 44(r31)
+  fcmpo cr0, f1, f2
+  cror 2, 1, 2
+  bne- .db4
+  lbz r5, 1648(r31)
+  cmpwi r5, 0x2
+  bge- .db4
+  li r0, 0x1
+  stw r0, 9048(r31)
+  stw r0, 9024(r31)
+  lbz r4, 8735(r31)
+  rlwinm. r4, r4, 0, 28, 28
+  beq+ .db2
+  lwz r4, 6804(r31)
+  cmpwi r4, 0x6
+  bne- .db2
+  fneg f0, f0
+
+.db2:
+  lbz r4, 7(r31)
+  cmpwi r4, 0xA
+  bne+ .db4
+  lwz r4, 16(r3)
+  lwz r4, 44(r4)
+  lwz r4, 7884(r4)
+  stfs f0, 24(r4)
+  lwz r5, 24(r4)
+  lis r12, 0x3F80
+  cmpw r5, r12
+  beq- .db3
+  li r5, 0x80
+  stb r5, 6(r4)
+  b .db4
+
+.db3:
+  li r5, 0x7F
+  stb r5, 6(r4)
+
+.db4:
+  stfs f0, 44(r31)
+
+add 04099864 7C661B79
+inserts 800C9A44
+
+-----------------------------------
+
+loc_0x0:
+  cmplwi r6, 1
+  beq- .sd2
+  lis r6, 0x804D
+  addi r6, r6, 0x1FB0
+  lwz r3, 44(r3)
+  lbz r4, 0xC(r3)
+  mulli r4, r4, 8
+  addi r4, r4, 4
+  lwzx r4, r6, r4
+  cmpwi r4, 0x1
+  beq- .sd1
+  b .sd2
+
+ .sd1:
+  lfs f0, 1568(r3)
+  lfs f1, 1572(r3)
+  fmuls f1, f1, f1
+  fmuls f0, f0, f0
+  fadds f0, f0, f1
+  lis r4, 0x3F6D
+  addi r4, r4, 0x28F6
+  stw r4, -8(r1)
+  lfs f1, -8(r1)
+  fcmpo cr0, f0, f1
+  cror 2, 1, 2
+  bne- .sd2
+  lbz r4, 1648(r3)
+  cmpwi r4, 0x3
+  ble- .sd2
+  lfs f0, 44(r5)
+  fneg f0, f0
+  lfs f1, 1572(r3)
+  fcmpo cr0, f0, f1
+  bge- .sd2
+  lwz r3, 28(r1)
+  addi r3, r3, 0x8
+  lwz r31, 20(r1)
+  addi r1, r1, 0x18
+  mtlr r3
+  blr 
+
+.sd2:
+  mr r3, r30
+  lwz r4, 44(r3)
+
+add 04099864 7C661B79
+inserts 800998A4
